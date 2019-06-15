@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/layout/template.xhtml">
+	<ui:define name="content">
+		<p:panel header="Listar Itens">
+			<h:form>
+				<p:commandButton value="Novo item"
+					action="#{itemBean.prepararCadastro}" ajax="false">
+				</p:commandButton>
+				<p:commandButton value="Mesma Pagina"
+					action="#{itemBean.prepararList}">
+				</p:commandButton>
+			</h:form>
+
+			<h:form prependId="false">
+				<p:inputText value="#{itemBean.filtro}">
+					<p:ajax event="blur" listener="#{itemBean.filtrarTabela}"
+						update="tableUsuarios" />
+				</p:inputText>
+				<p:dataTable id="tableUsuarios" widgetVar="table"
+					value="#{itemBean.listItem}" var="item" paginator="true"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15" reflow="true" scrollable="true">
+					<f:facet name="header">
+						<h:outputText value="Itens" />
+					</f:facet>
+
+					<p:column headerText="Alimento">
+						<h:outputText value="#{item.alimento}" />
+					</p:column>
+
+					<p:column headerText="Quantidade">
+						<h:outputText value="#{item.quantidade}" />
+					</p:column>
+
+					<p:column headerText="Tipo">
+						<h:outputText value="#{item.tipo}" />
+					</p:column>
+					
+					<p:column headerText="Ações">
+						<p:commandButton value="Editar" icon="fa fa-search"
+							action="#{itemBean.carregarDetalhes2(item)}"
+							update=":formDialog:dialogDetalhes"
+							oncomplete="PF('dialogDetail').show()" />
+						<p:commandButton value="Remover" icon="fa fa-remove"
+							action="#{itemBean.deletar(item)}" />
+					</p:column>
+
+				</p:dataTable>
+			</h:form>
+			
+				<h:form id="formDialog" prependId="false">
+				<p:dialog id="dialogDetalhes" widgetVar="dialogDetail" modal="true">
+					<p:panelGrid id="panelDetail" columns="1">
+					
+					<p:outputLabel value="Alimento:" for="alimento" />
+					<p:inputText id="alimento" value="#{itemBean.item.alimento}">
+					</p:inputText>
+					<p:message for="alimento" />
+					
+					<p:outputLabel value="Quantidade:" for="quantidade" />
+					<p:inputText id="quantidade" value="#{itemBean.item.quantidade}">
+					</p:inputText>
+					<p:message for="quantidade" />
+				
+					<p:outputLabel value="Tipo:" for="tipo" />
+					<p:selectOneMenu id="tipo" value="#{itemBean.selectTipo}"
+						converter="tipoConverter">
+						<f:selectItem itemLabel="Selecione..." noSelectionOption="true" />
+						<f:selectItems value="#{itemBean.listTipos}" />
+					</p:selectOneMenu>
+					<p:message for="tipo" />
+					
+					</p:panelGrid>
+						<p:commandButton value="Editar"
+					action="#{enderecoBean.editar(enderecoBean.endereco)}" ajax="false" />
+				</p:dialog>
+			</h:form>
+		</p:panel>
+	</ui:define>
+</ui:composition>
+</html>

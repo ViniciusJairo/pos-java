@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/layout/template.xhtml"
+	xmlns:unipe="http://java.sun.com/jsf/composite/unipe">
+	<ui:define name="content">
+		<p:messages showDetail="true" showSummary="false" globalOnly="true" />
+		<p:panel header="Cadastro de Itens">
+			<h:form>
+				<p:commandLink value="Listar Itens" action="listarItens" />
+			</h:form>
+
+			<h:form id="form" prependId="false">
+				<p:panelGrid columns="1">
+				
+					<p:outputLabel value="Alimento:" for="alimento" />
+					<p:inputText id="alimento" value="#{itemBean.item.alimento}">
+					</p:inputText>
+					<p:message for="alimento" />
+					
+					<p:outputLabel value="Quantidade:" for="quantidade" />
+					<p:inputText id="quantidade" value="#{itemBean.item.quantidade}">
+					</p:inputText>
+					<p:message for="quantidade" />
+				
+					<p:outputLabel value="Tipo:" for="tipo" />
+					<p:selectOneMenu id="tipo" value="#{itemBean.item.tipo}"
+						converter="tipoConverter">
+						<f:selectItem itemLabel="Selecione..." noSelectionOption="true" />
+						<f:selectItems value="#{itemBean.listTipos}" />
+					</p:selectOneMenu>
+					<p:message for="tipo" />
+
+				</p:panelGrid>
+
+				<p:commandButton value="Cadastrar"
+					action="#{itemBean.adicionarItem}" ajax="false" />
+			</h:form>
+		</p:panel>
+	</ui:define>
+</ui:composition>
+</html>

@@ -13,5 +13,16 @@ os campos para adicionar as informações.
 2. Por algum motivo o regex não funciona adequadamente nos parametros solicitados na documentação, entretanto está implementado com um outro
 e colocamos o regex solicitado na documentação comentado em cima da classe model do usuário. 
 
+DISCIPLINA 
+
+PG2405 - DESENVOLVIMENTO JAVA WEB FRAMEWORKS
+
+EQUIPE
+
+POS1360110 - VINICIUS JAIRO ROCHA QUEIROZ DE ALBUQUERQUE 
+POS1360092 - RAFAEL FARIAS CORDEIRO 
+           - MÁRCIO ANDRÉ RIBEIRO
+
+
 
 
